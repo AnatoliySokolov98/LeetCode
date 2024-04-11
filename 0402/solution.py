@@ -6,7 +6,6 @@ class Solution:
                 stack.pop()
                 k -= 1
             stack.append(n)
-        print(stack)
         while k > 0:
             stack.pop()
             k -= 1
