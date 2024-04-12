@@ -1,21 +1,25 @@
-class Solution {
-    public int trap(int[] height) {
-        int H = height.length;
-        int res = 0;
-        int leftMax = 0;
-        int[] rightMax = new int[H];
-        for (int i = H - 2; i >= 0; i--) {
-            rightMax[i] = Math.max(rightMax[i + 1], height[i + 1]);
-        }
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-        for (int i = 1; i < H; i++) {
-            leftMax = Math.max(leftMax, height[i - 1]);
-            int contribution = Math.min(leftMax, rightMax[i]);
-            res += Math.max(0, contribution - height[i]);
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> res = new HashMap<>();
+        for (String str : strs) {
+            char[] charArray = str.toCharArray();
+            Arrays.sort(charArray);
+            String sortedString = new String(charArray);
+            if (!res.containsKey(sortedString)) {
+                res.put(sortedString, new ArrayList<>());
+            }
+            res.get(sortedString).add(str);
         }
-        return res;
+        List<List<String>> output = new ArrayList<>();
+        for (List<String> val : res.values()) {
+            output.add(val);
+        }
+        return output;
     }
 }
-
-// time O(n)
-// space O(n)
