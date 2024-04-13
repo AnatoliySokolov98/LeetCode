@@ -39,3 +39,6 @@ class Solution {
         return maxArea;
     }
 }
+
+// time O(n*m)
+// space O(m)
