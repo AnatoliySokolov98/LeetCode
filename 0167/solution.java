@@ -1,17 +1,46 @@
-class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        int l = 0;
-        int r = numbers.length - 1;
-        while (l < r) {
-            if (numbers[l] + numbers[r] == target) {
-                return new int[] { l + 1, r + 1 };
-            }
-            if (numbers[l] + numbers[r] < target) {
-                l++;
-            } else {
-                r--;
-            }
-        }
-        return new int[] { -1, -1 };
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode() {
+    }
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
     }
 }
+
+class Solution {
+    int total = 0;
+
+    public int sumNumbers(TreeNode root) {
+        traverse(root, 0);
+        return total;
+    }
+
+    private void traverse(TreeNode node, int val) {
+        if (node == null) {
+            return;
+        }
+
+        int newVal = val * 10 + node.val;
+
+        if (node.left == null && node.right == null) {
+            total += newVal;
+        } else {
+            traverse(node.left, newVal);
+            traverse(node.right, newVal);
+        }
+    }
+}
+
+// time O(n)
+// space O(depth)
