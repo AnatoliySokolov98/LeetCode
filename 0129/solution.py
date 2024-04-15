@@ -10,18 +10,16 @@ class TreeNode:
 
 class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
-        res = 0
-
         def root_to_leaf(node, val):
-            curr = node.val + val
+            if not node:
+                return 0
+            curr = node.val + val * 10
             if not node.left and not node.right:
-                nonlocal res
-                res += curr
-            curr *= 10
-            if node.left:
-                root_to_leaf(node.left, curr)
-            if node.right:
-                root_to_leaf(node.right, curr)
+                return curr
+            return root_to_leaf(node.left, curr) + root_to_leaf(node.right, curr)
 
-        root_to_leaf(root, 0)
+        return root_to_leaf(root, 0)
         return res
+
+        # time O(n)
+        # space O(n)

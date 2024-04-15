@@ -10,20 +10,19 @@ class TreeNode {
 }
 
 function sumNumbers(root: TreeNode | null): number {
-  let res = 0;
-  const traverse = (node: TreeNode | null, prefix: number): void => {
+  const traverse = (node: TreeNode | null, prefix: number): number => {
     if (!node) {
-      return;
+      return 0;
     }
 
     if (!node.left && !node.right) {
-      res += prefix * 10 + node.val;
-      return;
+      return prefix * 10 + node.val;
     }
 
-    traverse(node.left, prefix * 10 + node.val);
-    traverse(node.right, prefix * 10 + node.val);
+    return (
+      traverse(node.left, prefix * 10 + node.val) +
+      traverse(node.right, prefix * 10 + node.val)
+    );
   };
-  traverse(root, 0);
-  return res;
+  return traverse(root, 0);
 }

@@ -1,17 +1,37 @@
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode() {
+    }
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
 class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        int l = 0;
-        int r = numbers.length - 1;
-        while (l < r) {
-            if (numbers[l] + numbers[r] == target) {
-                return new int[] { l + 1, r + 1 };
-            }
-            if (numbers[l] + numbers[r] < target) {
-                l++;
-            } else {
-                r--;
-            }
+    public int sumNumbers(TreeNode root) {
+        return traverse(root, 0);
+    }
+
+    private int traverse(TreeNode node, int val) {
+        if (node == null) {
+            return 0;
         }
-        return new int[] { -1, -1 };
+
+        int newVal = val * 10 + node.val;
+
+        if (node.left == null && node.right == null) {
+            return newVal;
+        }
+        return traverse(node.left, newVal) + traverse(node.right, newVal);
     }
 }
