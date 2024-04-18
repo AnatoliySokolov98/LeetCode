@@ -1,14 +1,25 @@
-class ParkingSystem {
-    int[] cars;
+import java.util.Arrays;
 
-    public ParkingSystem(int big, int medium, int small) {
-        this.cars = new int[] { big, medium, small };
-    }
-
-    public boolean addCar(int carType) {
-        if (this.cars[carType - 1] == 0)
-            return false;
-        this.cars[carType - 1]--;
-        return true;
+class Solution {
+    public int numSubseq(int[] nums, int target) {
+        Arrays.sort(nums);
+        int MOD = ((int) Math.pow(10, 9)) + 7;
+        int n = nums.length;
+        int[] pow = new int[n];
+        pow[0] = 1;
+        for (int i = 1; i < n; i++) {
+            pow[i] = pow[i - 1] * 2 % MOD;
+        }
+        int res = 0;
+        int left = 0, right = n - 1;
+        while (left <= right) {
+            if (nums[left] + nums[right] > target) {
+                right--;
+            } else {
+                res = (res + pow[right - left]) % MOD;
+                left++;
+            }
+        }
+        return res;
     }
 }

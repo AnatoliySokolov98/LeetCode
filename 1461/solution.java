@@ -1,12 +1,34 @@
-import java.util.Set;
-import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 class Solution {
-    public boolean hasAllCodes(String s, int k) {
-        Set<String> codes = new HashSet<String>();
-        for (int i = 0; i <= s.length() - k; i++) {
-            codes.add(s.substring(i, i + k));
+    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        for (int i = 0; i < manager.length; i++) {
+            int parent = manager[i];
+            if (parent == -1) {
+                continue;
+            }
+            graph.put(parent, graph.getOrDefault(parent, new ArrayList<Integer>()));
+            graph.get(parent).add(i);
         }
-        return codes.size() == Math.pow(2, k);
+        List<int[]> bfs = new ArrayList<>();
+        bfs.add(new int[] { headID, 0 });
+
+        int res = 0;
+        while (!bfs.isEmpty()) {
+            int[] curr = bfs.removeLast();
+            int node = curr[0];
+            int time = curr[1];
+            res = Math.max(res, time);
+            if (graph.containsKey(node)) {
+                for (int child : graph.get(node)) {
+                    bfs.add(new int[] { child, time + informTime[node] });
+                }
+            }
+        }
+        return res;
     }
 }

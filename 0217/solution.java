@@ -1,15 +1,18 @@
-import java.util.HashSet;
-import java.util.Set;
-
 class Solution {
-    public boolean containsDuplicate(int[] nums) {
-        Set<Integer> uniques = new HashSet<Integer>();
-        for (int num: nums) {
-            if(uniques.contains(num)) {
-                return true;
+    public int minSubArrayLen(int target, int[] nums) {
+        int l = 0;
+        int res = Integer.MAX_VALUE;
+        int curr = 0;
+        for (int r = 0; r < nums.length; r++) {
+            curr += nums[r];
+            while (curr - nums[l] >= target && l <= r) {
+                curr -= nums[l++];
             }
-            uniques.add(num);
+
+            if (curr >= target) {
+                res = Math.min(res, r - l + 1);
+            }
         }
-        return false;
+        return res == Integer.MAX_VALUE ? 0 : res;
     }
 }
