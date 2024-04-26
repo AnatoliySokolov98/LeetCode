@@ -6,7 +6,9 @@ class Solution {
         for (int i = 0; i < s.length(); i++) {
             int currValue = (int) (s.charAt(i) - 'a');
             int currTotal = 1;
-            for (int j = 0; j < 26; j++) {
+            int bot = Math.max(0, currValue - k);
+            int top = Math.min(26, currValue + k + 1);
+            for (int j = bot; j < top; j++) {
                 if (Math.abs(j - currValue) <= k) {
                     currTotal = Math.max(currTotal, dp[j] + 1);
                 }

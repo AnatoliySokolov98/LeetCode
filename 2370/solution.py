@@ -16,12 +16,8 @@ class Solution:
         #     return res
         # return dp(0, None)
 
-        dp = defaultdict(int)
+        dp = [0] * 26
         for i in range(len(s)):
-            char_value = ord(s[i])
-            char_total = 1
-            for key, val in dp.items():
-                if abs(key - char_value) <= k:
-                    char_total = max(val + 1, char_total)
-            dp[char_value] = char_total
-        return max(dp.values())
+            char_value = ord(s[i]) - ord("a")
+            dp[char_value] = max(dp[max(0, char_value - k) : char_value + k + 1]) + 1
+        return max(dp)

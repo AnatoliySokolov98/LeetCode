@@ -2,13 +2,9 @@ function longestIdealString(s: string, k: number): number {
   const dp = new Array(26).fill(0);
   for (let i = 0; i < s.length; i++) {
     const currValue = s.charCodeAt(i) - "a".charCodeAt(0);
-    let currTotal = 1;
-    for (let j = 0; j < 26; j++) {
-      if (Math.abs(j - currValue) <= k) {
-        currTotal = Math.max(currTotal, dp[j] + 1);
-      }
-    }
-    dp[currValue] = currTotal;
+    const bot = Math.max(0, currValue - k);
+    const top = Math.min(26, currValue + k + 1);
+    dp[currValue] = Math.max(...dp.slice(bot, top)) + 1;
   }
   return Math.max(...dp);
 }
