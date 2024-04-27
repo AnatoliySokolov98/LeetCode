@@ -3,26 +3,25 @@ function minFallingPathSum(grid: number[][]): number {
   if (N === 1) {
     return grid[0][0];
   }
-
-  let smallest = [0, -1];
-  let biggest = [0, -1];
+  let prevRow: Array<[number, number]> = [
+    [0, -1],
+    [0, -1],
+  ];
 
   for (let row = 0; row < N; row++) {
-    let currRow = new Array<[number, number]>();
+    const currRow: Array<[number, number]> = [];
     for (let col = 0; col < N; col++) {
-      if (col !== smallest[1]) {
-        currRow.push([grid[row][col] + smallest[0], col]);
+      if (col !== prevRow[0][1]) {
+        currRow.push([prevRow[0][0] + grid[row][col], col]);
       } else {
-        currRow.push([grid[row][col] + biggest[0], col]);
+        currRow.push([prevRow[1][0] + grid[row][col], col]);
       }
       if (currRow.length > 2) {
         currRow.sort((a, b) => a[0] - b[0]);
         currRow.pop();
       }
     }
-    currRow.sort((a, b) => a[0] - b[0]);
-    biggest = currRow.pop()!;
-    smallest = currRow.pop()!;
+    prevRow = currRow;
   }
-  return smallest[0];
+  return prevRow[0][0];
 }
