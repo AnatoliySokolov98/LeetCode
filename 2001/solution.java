@@ -1,18 +1,23 @@
-import java.util.HashMap;
-import java.util.Map;
-
 class Solution {
-    public long interchangeableRectangles(int[][] rectangles) {
-        Map<Double, Integer> counts = new HashMap<>();
-
-        for (int[] rectangle : rectangles) {
-            double dim = (double) rectangle[0] / rectangle[1];
-            counts.put(dim, counts.getOrDefault(dim, 0) + 1);
+    public String reversePrefix(String word, char ch) {
+        char[] res = word.toCharArray();
+        for (int i = 0; i < res.length; i++) {
+            if (res[i] == ch) {
+                int l = 0;
+                int r = i;
+                while (l < r) {
+                    char temp = res[l];
+                    res[l] = res[r];
+                    res[r] = temp;
+                    l++;
+                    r--;
+                }
+                break;
+            }
         }
-        long res = 0;
-        for (Integer val : counts.values()) {
-            res += (long) val * (val - 1) / 2;
-        }
-        return res;
+        return new String(res);
     }
 }
+
+// time O(n)
+// space O(n)
