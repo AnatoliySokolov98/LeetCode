@@ -26,7 +26,7 @@ function doubleIt(head: ListNode | null): ListNode | null {
 
 function reverseList(head: ListNode | null): ListNode | null {
   let curr = head;
-  let prev = null;
+  let prev: ListNode | null = null;
   while (curr != null) {
     const next = curr.next;
     curr.next = prev;

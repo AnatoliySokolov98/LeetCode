@@ -1,24 +1,24 @@
-class solution {
+class ListNode {
     int val;
-    solution next;
+    ListNode next;
 
-    solution() {
+    ListNode() {
     }
 
-    solution(int val) {
+    ListNode(int val) {
         this.val = val;
     }
 
-    solution(int val, solution next) {
+    ListNode(int val, ListNode next) {
         this.val = val;
         this.next = next;
     }
 }
 
 class Solution {
-    public solution doubleIt(solution head) {
+    public ListNode doubleIt(ListNode head) {
         head = reverseList(head);
-        solution curr = head;
+        ListNode curr = head;
         int carry = 0;
         while (curr != null) {
             int total = (curr.val * 2 + carry) % 10;
@@ -28,15 +28,15 @@ class Solution {
         }
         head = reverseList(head);
         if (carry != 0) {
-            head = new solution(carry, head);
+            head = new ListNode(carry, head);
         }
         return head;
     }
 
-    private solution reverseList(solution node) {
-        solution prev = null;
+    private ListNode reverseList(ListNode node) {
+        ListNode prev = null;
         while (node != null) {
-            solution next = node.next;
+            ListNode next = node.next;
             node.next = prev;
             prev = node;
             node = next;
