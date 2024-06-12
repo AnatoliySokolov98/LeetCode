@@ -1,19 +1,21 @@
 function sortColors(nums: number[]): void {
-  let red = 0;
-  let white = 0;
-  for (const num of nums) {
-    if (num == 0) red++;
-    else if (num == 1) white++;
-  }
-  for (let i = 0; i < nums.length; i++) {
-    if (red) {
-      nums[i] = 0;
-      red--;
-    } else if (white) {
-      nums[i] = 1;
-      white--;
+  let l = 0;
+  let r = nums.length - 1;
+  let i = 0;
+  while (i <= r) {
+    if (i < l) {
+      i++;
+      continue;
+    }
+    const curr = nums[i];
+    if (curr == 0) {
+      nums[i] = nums[l];
+      nums[l++] = 0;
+    } else if (curr == 2) {
+      nums[i] = nums[r];
+      nums[r--] = 2;
     } else {
-      nums[i] = 2;
+      i++;
     }
   }
 }

@@ -1,19 +1,26 @@
-import java.util.Map;
-import java.util.HashMap;
-
 class Solution {
     public void sortColors(int[] nums) {
-        Map<Integer, Integer> counts = new HashMap<>();
-        for (int num : nums) {
-            counts.put(num, counts.getOrDefault(num, 0) + 1);
-        }
-
-        int index = 0;
-        for (int num = 0; num <= 2; num++) {
-            int count = counts.getOrDefault(num, 0);
-            for (int i = 0; i < count; i++) {
-                nums[index++] = num;
+        int l = 0;
+        int r = nums.length - 1;
+        int i = 0;
+        while (i <= r) {
+            if (i < l) {
+                i++;
+                continue;
+            }
+            int curr = nums[i];
+            if (curr == 0) {
+                nums[i] = nums[l];
+                nums[l++] = 0;
+            } else if (curr == 2) {
+                nums[i] = nums[r];
+                nums[r--] = 2;
+            } else {
+                i++;
             }
         }
     }
 }
+
+// time O(n)
+// space O(1)
