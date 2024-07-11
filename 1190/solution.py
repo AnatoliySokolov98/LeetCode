@@ -12,7 +12,6 @@ class Solution:
         res = []
         direction = 1
         curr = 0
-        print(locs)
         while 0 <= curr < len(s):
             if curr in locs:
                 direction *= -1
