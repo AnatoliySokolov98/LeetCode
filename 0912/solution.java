@@ -1,36 +1,44 @@
-import java.util.Arrays;
+import java.util.Random;
 
 class Solution {
     public int[] sortArray(int[] nums) {
-        return split(nums);
+        quickSort(nums, 0, nums.length - 1);
+        return nums;
     }
 
-    public int[] split(int[] nums) {
-        if (nums.length <= 1) {
-            return nums;
+    private void quickSort(int[] nums, int l, int r) {
+        if (l >= r) {
+            return;
         }
-        int middle = nums.length / 2;
-        return merge(split(Arrays.copyOfRange(nums,0, middle)), split(Arrays.copyOfRange(nums, middle,nums.length)));
-    }
+        Random rand = new Random();
+        int p = rand.nextInt(r - l + 1) + l;
+        int pivot = nums[p];
+        nums[p] = nums[r];
+        nums[r] = pivot;
+        int i = l;
+        int j = l;
+        int k = r;
 
-    public int[] merge(int[] nums1, int[] nums2) {
-        int[] res = new int[nums1.length + nums2.length];
-        int i = 0;
-        int j1 = 0, j2 = 0;
-        while (j1 < nums1.length || j2 < nums2.length) {
-            if (j1 == nums1.length) {
-                res[i++] = nums2[j2++];
-            }
-            else if (j2 == nums2.length) {
-                res[i++] = nums1[j1++];
-            }
-            else if (nums1[j1] <= nums2[j2]) {
-                res[i++] = nums1[j1++];
-            }
-            else {
-                res[i++] = nums2[j2++];
+        while (j <= k) {
+            if (nums[j] < pivot) {
+                int temp = nums[j];
+                nums[j] = nums[i];
+                nums[i] = temp;
+                i++;
+                j++;
+            } else if (nums[j] > pivot) {
+                int temp = nums[j];
+                nums[j] = nums[k];
+                nums[k] = temp;
+                k--;
+            } else {
+                j++;
             }
         }
-        return res;
+        quickSort(nums, l, i - 1);
+        quickSort(nums, k + 1, r);
     }
 }
+
+// time O(nlogn)
+// space O(logn)
