@@ -1,16 +1,18 @@
 package main
 
-func canPlaceFlowers(flowerbed []int, n int) bool {
-	flowerbed = append([]int{0}, flowerbed...)
-	flowerbed = append(flowerbed, 0)
-	res := 0
-	for i := 1; i < len(flowerbed)-1; {
-		if flowerbed[i] == 0 && flowerbed[i-1] == 0 && flowerbed[i+1] == 0 {
-			res++
-			i += 2
-		} else {
-			i += 1
+func findErrorNums(nums []int) []int {
+	for _, v := range nums {
+		nums[(v-1)%10_000] += 10_000
+	}
+
+	res := []int{0, 0}
+
+	for i, v := range nums {
+		if v < 10_000 {
+			res[1] = i + 1
+		} else if v > 20_000 {
+			res[0] = i + 1
 		}
 	}
-	return res >= n
+	return res
 }
