@@ -1,5 +1,5 @@
 class Solution:
-    def smallestDistancePair(self, nums: List[int], k: int) -> int:
+    def smallestDistancePair(self, nums: list[int], k: int) -> int:
         nums.sort()
 
         def countPairs(dist: int) -> int:
