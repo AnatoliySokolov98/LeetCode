@@ -1,22 +1,28 @@
-class Solution:
-    def minimumCost(self, m: int, n: int, h: list[int], v: list[int]) -> int:
-        h.sort(reverse=True)
-        v.sort(reverse=True)
-        res = 0
-        i = 0
-        j = 0
-        hSum = sum(h)
-        vSum = sum(v)
-        while i < len(h) and j < len(v):
-            if h[i] > v[j]:
-                res += h[i] * (j + 1)
-                hSum -= h[i]
-                i += 1
-            else:
-                res += v[j] * (i + 1)
-                vSum -= v[j]
-                j += 1
-        return res + n * hSum + m * vSum
+from typing import Optional
 
-        # time O(hlog + vlogv)
-        # space O(1)
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class Solution:
+    def modifiedList(
+        self, nums: list[int], head: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        nums = set(nums)
+        dummy = ListNode()
+        curr = dummy
+        while head:
+            if head.val not in nums:
+                curr.next = head
+                head = head.next
+                curr = curr.next
+                curr.next = None
+            else:
+                head = head.next
+        return dummy.next
+
+        # time O(n + l)
+        # space O(n)
