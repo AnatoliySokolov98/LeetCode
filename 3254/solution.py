@@ -1,5 +1,5 @@
 class Solution:
-    def resultsArray(self, nums: List[int], k: int) -> List[int]:
+    def resultsArray(self, nums: list[int], k: int) -> list[int]:
         curr = 0
         l = 0
         res = []
