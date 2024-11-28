@@ -1,5 +1,8 @@
+from collections import deque
+
+
 class Solution:
-    def minimumObstacles(self, grid: List[List[int]]) -> int:
+    def minimumObstacles(self, grid: list[list[int]]) -> int:
         directions = [[0, 1], [1, 0], [-1, 0], [0, -1]]
         ROWS, COLS = len(grid), len(grid[0])
         bfs = deque()
