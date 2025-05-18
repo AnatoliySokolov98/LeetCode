@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class Solution {
     List<List<Integer>> combs;
 
@@ -6,7 +10,8 @@ class Solution {
         backtrack(new ArrayList<>(), m);
 
         int[][] cache = new int[n][combs.size()];
-        for (int[] row : cache) Arrays.fill(row, -1);
+        for (int[] row : cache)
+            Arrays.fill(row, -1);
 
         int res = 0;
         for (int i = 0; i < combs.size(); i++) {
@@ -17,8 +22,10 @@ class Solution {
     }
 
     private int dp(int col, int prevIdx, int[][] cache, int n) {
-        if (col == n) return 1;
-        if (cache[col][prevIdx] != -1) return cache[col][prevIdx];
+        if (col == n)
+            return 1;
+        if (cache[col][prevIdx] != -1)
+            return cache[col][prevIdx];
 
         int res = 0;
         List<Integer> prev = combs.get(prevIdx);
@@ -48,7 +55,8 @@ class Solution {
 
     private boolean isValid(List<Integer> a, List<Integer> b) {
         for (int i = 0; i < a.size(); i++) {
-            if (a.get(i).equals(b.get(i))) return false;
+            if (a.get(i).equals(b.get(i)))
+                return false;
         }
         return true;
     }
