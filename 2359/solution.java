@@ -2,30 +2,33 @@ import java.util.*;
 
 class Solution {
     public int closestMeetingNode(int[] edges, int node1, int node2) {
-        Map<Integer, Integer> lefts = new HashMap<>();
-        Map<Integer, Integer> rights = new HashMap<>();
-        computeDistances(edges, node1, lefts);
-        computeDistances(edges, node2, rights);
+        Map<Integer, Integer> nodeOneNodes = new HashMap<>();
+        Map<Integer, Integer> nodeTwoNodes = new HashMap<>();
+        computeDistances(edges, node1, nodeOneNodes);
+        computeDistances(edges, node2, nodeTwoNodes);
         int node = -1;
         int dist = Integer.MAX_VALUE;
-        for (var entry : lefts.entrySet()) {
+        for (var entry : nodeOneNodes.entrySet()) {
             int key = entry.getKey();
-            int leftVal = entry.getValue();
-            int rightVal = rights.getOrDefault(key, Integer.MAX_VALUE);
-            int maxDist = Math.max(leftVal, rightVal);
+            int nodeOneValue = entry.getValue();
+            int nodeTwoValue = nodeTwoNodes.getOrDefault(key, Integer.MAX_VALUE);
+            int maxDist = Math.max(nodeOneValue, nodeTwoValue);
             if (maxDist < dist || (dist == maxDist && key < node)) {
-                dist = Math.max(leftVal, rightVal);
+                dist = maxDist;
                 node = key;
             }
         }
-        return dist == Integer.MAX_VALUE ? -1 : node;
+        return node;
     }
 
-    private void computeDistances(int[] edges, int start, Map<Integer, Integer> dist) {
+    private void computeDistances(int[] edges, int start, Map<Integer, Integer> distances) {
         int distance = 0;
-        while (start != -1 && !dist.containsKey(start)) {
-            dist.put(start, distance++);
+        while (start != -1 && !distances.containsKey(start)) {
+            distances.put(start, distance++);
             start = edges[start];
         }
     }
 }
+
+// time O(n)
+// space O(n)
